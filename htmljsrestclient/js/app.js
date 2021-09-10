@@ -11,8 +11,8 @@ async function getUsers() {
 async function renderUsers() {
     let users = await getUsers();
     let html = '';
-    users.forEach(user => {
-        let htmlSegment = `<table class="table">
+	
+	let top = `<table class="table">
                             <thead>
 							  <tr>
 								<th scope="col">#id</th>
@@ -21,18 +21,25 @@ async function renderUsers() {
 								<th scope="col">email</th>
 							  </tr>
 							</thead>
-							<tbody>
-							  <tr>
-								<th scope="row">${user.id}</th>
+							<tbody>`;
+							
+	html += top;
+	
+    users.forEach(user => {
+        let htmlSegment = `<tr>
+								<td scope="row">${user.id}</td>
 								<td>${user.name}</td>
 								<td>${user.username}</td>
 								<td>${user.email}</td>
-							  </tr>
-							</tbody>
-                        </table>`;
+							  </tr>`;
 
         html += htmlSegment;
     });
+	
+	let bottom = `</tbody>
+                        </table>`;
+						
+	html += bottom;
 
     let container = document.querySelector('.container');
     container.innerHTML = html;
